@@ -32,8 +32,13 @@ Scanner sc=new 	Scanner(System.in);
         		               System.out.println("Enter amount to be send");
         		               double amount=sc.nextDouble();
         		               User u_receiver=new User(rst.getString("user_name"), rst.getString("upi_id"), rst.getDouble("balance"), rst.getString("user_pin"),rst.getString("Password"));
+        		               try {
         		               obj.send_money(amount,u_receiver,u_sender);
-        		       }
+        		               }
+        		               catch (Exception e) {
+								// TODO: handle exception
+							}
+        		               }
         	   }
         	   if(!isexist)
         	   {

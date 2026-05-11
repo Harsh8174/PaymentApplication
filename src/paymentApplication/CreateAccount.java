@@ -3,15 +3,17 @@ package paymentApplication;
 import java.sql.PreparedStatement;
 import java.util.Scanner;
 
+import TransactionHistory.Transactionhistory;
 import paymentApplication.*;
-
+import TransactionHistory.Transactionhistory;
 public class CreateAccount {
 	Scanner sc=new Scanner(System.in);
+	Transactionhistory obj=new Transactionhistory();
 	User createaccount() {
 		  System.out.println("Enter user name");        	
           String name=sc.next();
-          sc.next();
-     	 System.out.println("Enter upi_id");
+     	 sc.next();
+          System.out.println("Enter upi_id");
      	 String upi_id=sc.next();
      	 System.out.println("Enter Upi four digit pin");
      	 String pin=sc.next();
@@ -47,7 +49,7 @@ public class CreateAccount {
 			 double wallbal=sc.nextDouble();
 			 if(wallbal>500) {
 				  User u=new User(name, upi_id, wallbal, pin, password);
-			     return u;
+				  return u;
 			 }
 			 else {
 				 System.out.println("Minimum balance to kept is 500");
@@ -58,10 +60,12 @@ public class CreateAccount {
 			    User u=new User(name,upi_id,pin,password);	    
 			    return u;
 		  }
+		  
 		  return null;
 	  }
 	void account_database_Storage() throws Exception{
 		User u=createaccount();
+	   //for user table
 		String query="insert into user (upi_id,user_name,user_pin,password,balance) values(?,?,?,?,?)";
 		 PreparedStatement pst= DBCONNECTION.connection().prepareStatement(query);
 	     pst.setString(1, u.getUpi_id());
@@ -70,9 +74,12 @@ public class CreateAccount {
 	     pst.setString(4, u.getPassword());
 	     pst.setDouble(5, u.getter());
 	     pst.executeUpdate();
+	     obj.transaction(u);
 	     System.out.println("Thank you Account Created Successfully");
-	     System.out.println("Login to check");
+	     System.out.println("Login to check");  
 	     Login user=new Login();
 	     user.checker();
 	}  
+	
+	
 }
