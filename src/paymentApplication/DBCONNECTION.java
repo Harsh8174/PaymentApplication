@@ -10,7 +10,7 @@ public class DBCONNECTION {
 	public static Connection connection() throws Exception{
 		    String url="jdbc:mysql://localhost:3306/upi_user";
 		    String user_name="root";
-		    String user_password="Pitambra@8174";
+		    String user_password="";
 		   Connection conn=DriverManager.getConnection(url,user_name,user_password);
 		   return conn;
 	}
